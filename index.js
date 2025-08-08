@@ -9,7 +9,7 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Enable CORS for local frontend
+// Enable CORS for local + deployed frontend
 app.use(
   cors({
     origin: ["http://localhost:5173", "https://blog-frontend-h7yp.vercel.app"],
@@ -25,12 +25,15 @@ app.use((req, res, next) => {
   next();
 });
 
+// Auth routes
+app.use("/api/auth", require("./routes/authRoutes"));
+
 // Blog routes
 app.use("/api/blogs", require("./routes/blogRoutes"));
 
 // Health check route
 app.get("/", (req, res) => {
-  res.send("API is running locally...");
+  res.send("API is running...");
 });
 
 // Error handler
@@ -42,5 +45,5 @@ app.use((err, req, res, next) => {
 // Start server
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`✅ Server running locally on http://localhost:${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
