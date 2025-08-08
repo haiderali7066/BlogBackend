@@ -10,12 +10,8 @@ const app = express();
 connectDB();
 
 // Enable CORS — include preflight support
-app.use(
-  cors({
-    origin: "https://blog-frontend-h7yp.vercel.app",
-    credentials: true,
-  })
-);
+app.use(cors());
+
 app.options("*", cors()); // <- important for preflight support
 
 // Parse incoming JSON
