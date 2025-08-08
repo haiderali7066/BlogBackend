@@ -12,7 +12,7 @@ connectDB();
 // Enable CORS for local frontend
 app.use(
   cors({
-    origin: "http://localhost:5173", // React Vite default port
+    origin: ["http://localhost:5173", "https://blog-frontend-h7yp.vercel.app"],
     credentials: true,
   })
 );
