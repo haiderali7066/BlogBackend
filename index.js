@@ -12,7 +12,7 @@ connectDB();
 // Enable CORS for local + deployed frontend
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://blog-frontend-h7yp.vercel.app"],
+    origin: ["http://localhost:5173", "https://haidersblog.vercel.app"],
     credentials: true,
   })
 );
