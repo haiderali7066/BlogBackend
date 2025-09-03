@@ -1,10 +1,10 @@
 const Blog = require("../models/Blog");
 
-// ✅ Create Blog (Only editor or admin)
+// ✅ Create Blog (All logged-in users can write)
 exports.createBlog = async (req, res) => {
   try {
-    if (!["editor", "admin"].includes(req.user.role)) {
-      return res.status(403).json({ message: "Not allowed to write blogs" });
+    if (!req.user) {
+      return res.status(401).json({ message: "Login required to write blogs" });
     }
 
     const blog = await Blog.create({
@@ -108,10 +108,10 @@ exports.deleteBlog = async (req, res) => {
         .json({ message: "Not allowed to delete this blog" });
     }
 
-    await blog.deleteOne(); // ✅ safer in Mongoose 7+, replace .remove()
+    await blog.deleteOne();
     res.json({ message: "Blog deleted" });
   } catch (err) {
-    console.error("DELETE BLOG ERROR:", err); // ✅ shows exact cause in console
+    console.error("DELETE BLOG ERROR:", err);
     res.status(500).json({ message: err.message });
   }
 };
